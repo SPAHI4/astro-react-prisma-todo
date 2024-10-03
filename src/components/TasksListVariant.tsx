@@ -46,6 +46,9 @@ export const TasksListVariant: React.FC<Props> = ({ initialTasks, filter }) => {
     await findTasks({
       filter,
     });
+
+    // OR:
+    // setTasks((tasks) => tasks.filter((t) => t.id !== id));
   };
 
   // const [updateTask, { pending: updatePending }] = useAction(actions.task.update);
