@@ -10,7 +10,6 @@
     "preview": "astro preview",
     "astro": "astro",
     "prisma:migrate": "pnpm prisma migrate dev",
-    "prisma:seed": "pnpm prisma db seed",
     "prisma:studio": "pnpm prisma studio"
   },
   "prisma": {

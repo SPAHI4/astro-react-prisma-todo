@@ -4,7 +4,6 @@
 ```bash
 $ pnpm install
 $ pnpm prisma:migrate
-$ pnpm prisma:seed
 
 $ pnpm dev
 ```
