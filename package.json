@@ -4,14 +4,55 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "test": "vitest",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prisma:migrate": "pnpm prisma migrate dev",
+    "prisma:seed": "pnpm prisma db seed",
+    "prisma:studio": "pnpm prisma studio"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
-    "astro": "^4.15.9",
     "@astrojs/check": "^0.9.3",
+    "@astrojs/react": "^3.6.2",
+    "@astrojs/tailwind": "^5.1.1",
+    "@prisma/client": "^5.20.0",
+    "astro": "^4.15.9",
+    "prisma": "^5.20.0",
+    "react": "19.0.0-rc-2d16326d-20240930",
+    "react-dom": "19.0.0-rc-2d16326d-20240930",
+    "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@rc",
+      "@types/react-dom": "npm:types-react-dom@rc"
+    }
+  },
+  "packageManager": "pnpm@9.11.0+sha512.0a203ffaed5a3f63242cd064c8fb5892366c103e328079318f78062f24ea8c9d50bc6a47aa3567cabefd824d170e78fa2745ed1f16b132e16436146b7688f19b",
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^22.7.4",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "eslint": "^9.11.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-astro": "^1.2.4",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react-hooks": "^5.1.0-rc-fb9a90fa48-20240614",
+    "globals": "^15.9.0",
+    "jsdom": "^25.0.1",
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.1",
+    "typescript-eslint": "^8.7.0",
+    "vitest": "^2.1.2"
   }
 }

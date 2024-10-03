@@ -1,0 +1,58 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import { actions } from 'astro:actions';
+
+import Layout from '../../../layouts/Layout.astro';
+import { TaskCard } from '../../../components/TaskCard.tsx';
+import { TaskFilter } from '../../../domain/Task';
+
+const { filter } = Astro.params;
+
+const tasks = await Astro.callAction(actions.task.findMany.orThrow, {
+  filter: filter as TaskFilter,
+})
+
+const lastCreated = Astro.getActionResult(actions.task.createEmpty);
+
+const isActive = (path: string) => filter === path ? 'font-bold text-blue-600' : '';
+
+const navItems = [
+  { href: TaskFilter.ALL, label: 'All', divider: true },
+  { href: TaskFilter.ACTIVE, label: 'Active' },
+  { href: TaskFilter.COMPLETED, label: 'Completed', divider: true },
+  { href: TaskFilter.LOW, label: 'Low' },
+  { href: TaskFilter.MEDIUM, label: 'Medium' },
+  { href: TaskFilter.HIGH, label: 'High' },
+];
+---
+
+<Layout title="Task Manager App 🚀">
+  <ViewTransitions />
+  <main class="max-w-[640px] py-4 flex flex-col m-auto h-full">
+    <nav class="flex gap-4 mb-8 mt-4" transition:animate="none">
+      {navItems.map(({ href, label, divider }) => (
+        <>
+          <a href={href} class={isActive(href)}>{label}</a>
+          {divider && <div class="text-gray-300 px-1">|</div>}
+        </>
+      ))}
+    </nav>
+
+    <div class="grid gap-4 py-4">
+      <div class="flex">
+        <h1 class="text-2xl font-bold grow">Tasks</h1>
+        <form method="POST" action={TaskFilter.ALL + actions.task.createEmpty}>
+          <button class="text-blue-500">+ New Task</button>
+        </form>
+      </div>
+
+      {tasks.map((task) => (
+        <div transition:name={`task-${task.id}`}>
+          <TaskCard initialTask={task} client:load autoFocus={lastCreated?.data?.id === task.id} />
+        </div>
+      ))}
+
+      {tasks.length === 0 && <div class="text-gray-400 text-xl py-4">No tasks found</div>}
+    </div>
+  </main>
+</Layout>

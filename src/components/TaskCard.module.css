@@ -1,0 +1,24 @@
+@keyframes dots {
+    0% {
+        opacity: 0;
+        content: '.';
+    }
+
+    50% {
+        opacity: 0.5;
+        content: '..';
+    }
+
+    100% {
+        opacity: 1;
+        content: '...';
+    }
+}
+
+.loading {
+    font-size: 2em;
+    &::before {
+        content: '.';
+        animation: dots 0.7s ease-in-out infinite;
+    }
+}

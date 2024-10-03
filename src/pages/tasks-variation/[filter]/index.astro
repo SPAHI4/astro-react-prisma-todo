@@ -1,0 +1,56 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import Layout from '../../../layouts/Layout.astro';
+import { TasksListVariant } from '../../../components/TasksListVariant';
+import { TaskFilter } from '../../../domain/Task';
+import { actions } from 'astro:actions';
+
+const { filter } = Astro.params;
+
+const tasks = await Astro.callAction(actions.task.findMany.orThrow, {
+  filter: filter as TaskFilter,
+});
+
+const isActive = (path: string) => filter === path ? 'font-bold text-blue-600' : '';
+
+const navItems = [
+  { href: TaskFilter.ALL, label: 'All', divider: true },
+  { href: TaskFilter.ACTIVE, label: 'Active' },
+  { href: TaskFilter.COMPLETED, label: 'Completed', divider: true },
+  { href: TaskFilter.LOW, label: 'Low' },
+  { href: TaskFilter.MEDIUM, label: 'Medium' },
+  { href: TaskFilter.HIGH, label: 'High' },
+];
+
+
+const emulateLatency = () => new Promise((resolve) => setTimeout(resolve, 100));
+
+await emulateLatency();
+---
+
+<Layout title="Task Manager App 🚀">
+  <ViewTransitions />
+  <main class="w-[640px] py-4 flex flex-col m-auto h-full">
+    <nav class="flex gap-4 mb-8" transition:animate="none">
+      {navItems.map(({ href, label, divider }, index) => (
+        <>
+          <a href={href} class={isActive(href)}>{label}</a>
+          {divider && <div class="text-gray-300 px-1">|</div>}
+        </>
+      ))}
+    </nav>
+
+    <div class="grid gap-4 py-4">
+      <div class="flex">
+        <h1 class="text-2xl font-bold grow">Tasks</h1>
+        <a href="new" class="text-blue-500">+ New Task</a>
+      </div>
+
+      <div transition:persist>
+        <TasksListVariant initialTasks={tasks} filter={filter as TaskFilter} client:load />
+      </div>
+
+      {tasks.length === 0 && <div class="text-gray-400 text-xl py-4">No tasks found</div>}
+    </div>
+  </main>
+</Layout>
