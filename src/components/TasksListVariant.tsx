@@ -53,16 +53,22 @@ export const TasksListVariant: React.FC<Props> = ({ initialTasks, filter }) => {
   //
   // const handleUpdate = async (task: Task) => {
   //   const updated = await updateTask(task);
+  //
   //   await findTasks({
   //     filter,
   //   });
+  //   OR:
+  //   setTasks((tasks) => tasks.map((t) => (t.id === updated.id ? updated : t)));
   // };
   //
   // const handleCreate = async (task: Task) => {
   //   const created = await createTask(task);
+  //
   //   await findTasks({
   //     filter,
   //   });
+  //  OR:
+  //  setTasks((tasks) => [created, ...tasks]);
   // };
 
   const tasks = data ?? initialTasks;
