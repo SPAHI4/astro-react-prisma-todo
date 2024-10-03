@@ -47,3 +47,4 @@ Probably a good UX would be to delete the task if it's empty after the user leav
 - a11y is not perfect
 - Transitions could be disabled
 - it expects both a good internet connection and a fast server response time, otherwise for an app like this I'd use a local state and optimistic updates
+- Test coverage is not perfect
