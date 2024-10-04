@@ -7,6 +7,9 @@ import { type Task, TaskSchema } from '../dto/Task.ts';
 
 const simulateLatency = () => new Promise((resolve) => setTimeout(resolve, 100));
 
+/**
+* written as is, could be a separate repository where an action is more like a service
+*/
 export const task = {
   createEmpty: defineAction({
     accept: 'form',
